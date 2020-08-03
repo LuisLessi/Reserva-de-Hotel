@@ -40,24 +40,22 @@ public class Reservation {
 		return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
 	}
 	
-	public String updateDate(Date checkin, Date checkout){
-		String error = null;
-		if(!this.checkout.after(getCheckout()) || this.checkin.after(getCheckin())) {
-			error =  "Error in reservation: Reservation dates for update must be future dates";
-		} 
-		if (!checkout.after(checkin)){
-			error = "Error in reservation: Check-out date must be after check-in date";
+	public String updateDate(Date checkIn, Date checkOut) {
+		if (this.checkin.after(checkIn) || this.checkout.after(checkOut)) {
+			return "Error in reservation: Reservation dates for update must be future dates";
 		}
-		
-		this.checkin = checkin;
-		this.checkout = checkout;
-		return error;
+		if (checkOut.before(checkIn)) {
+			return "Error in reservation: Check-out date must be after check-in date";
+		}
+		this.checkin = checkIn;
+		this.checkout = checkOut;
+		return null;
 	}
 
 	@Override
 	public String toString() {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		return "Reservation: Room "+ roomNumber+", CheckIn: "+ sdf.format(checkin)+", checkOut: "+ sdf.format(checkout)
+		return "Reservation: Room "+ roomNumber+", CheckIn: "+ sdf.format(this.checkin)+", checkOut: "+ sdf.format(this.checkout)
 				+", "+ duration()+" nights";
 	}
 	

@@ -34,18 +34,18 @@ public class Program {
 		System.out.println("\nEnter data to update the reservation: ");
 		
 		System.out.print("Check-in date (dd/MM/yy): ");
-		checkIn =  sdf.parse(sc.next());
+		Date checkInUp =  sdf.parse(sc.next());
 		
 		System.out.print("Check-out date (dd/MM/yy): ");
 		sc.nextLine();
-		checkOut =  sdf.parse(sc.next());
+		Date checkOutUp =  sdf.parse(sc.next());
 		
-		String error = reservation.updateDate(checkIn, checkOut);
+		String error = reservation.updateDate(checkInUp, checkOutUp);
 		
-		if (error == null) {
-			System.out.println(reservation.toString());
+		if (error != null) {
+			System.out.println(error);
 		} else {
-			System.out.println(reservation.updateDate(checkIn, checkOut));
+			System.out.println(reservation.toString());
 		}
 		}
 		sc.close();
